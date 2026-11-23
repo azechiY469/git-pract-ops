@@ -1,0 +1,35 @@
+name: PR チェック
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: タイトルが規約どおりか確認
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "PR のタイトル: $TITLE"
+          if [[ "$TITLE" =~ ^(feat|fix|docs|refactor|test|chore)(\([a-z0-9-]+\))?!?:\ .+ ]]; then
+            echo "OK"
+          else
+            echo "::error::PR のタイトルは「種類: 説明」の形にしてください(例: docs: README に営業時間を追加)"
+            exit 1
+          fi
+
+  whitespace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: 行末の空白などがないか確認
+        env:
+          BASE: ${{ github.base_ref }}
+        run: git diff --check "origin/$BASE...HEAD"
