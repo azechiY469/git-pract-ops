@@ -1,0 +1,19 @@
+name: バグ報告
+description: 不具合を報告する
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: 何が起きたか
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現する手順
+      placeholder: "1. ... 2. ... 3. ..."
+  - type: textarea
+    id: expected
+    attributes:
+      label: 本来はどうなるべきか

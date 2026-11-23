@@ -1,0 +1,14 @@
+name: 機能の提案
+description: 新しい機能や改善を提案する
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: 何をしたいか
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: なぜ必要か
